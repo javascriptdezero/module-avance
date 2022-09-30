@@ -1,2 +1,0 @@
-/* Le type BigInt */
-
