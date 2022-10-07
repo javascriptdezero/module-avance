@@ -1,0 +1,10 @@
+{
+  "nom": "JavaScript de Zéro",
+  "type": "formation",
+  "langage": {
+    "nom": "JavaScript",
+    "version": "ES2022"
+  },
+  "nombre de modules": 5,
+  "modules": ["débutant", "intermédiaire", "algorithmique", "avancé", "expert"]
+}
