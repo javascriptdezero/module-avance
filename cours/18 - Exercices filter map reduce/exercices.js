@@ -78,10 +78,6 @@ function retirerDoublons(tableaux) {
   return resultat;
 }
 
-function retirerDoublons(tableaux) {
-  return tableaux.map(tableau => Array.from(new Set(tableau)));
-}
-
 // Exercice 7
 function composerDebutLettre(personnes) {
   let resultat = [];
@@ -108,12 +104,4 @@ function statistiquesTwitter(tweets) {
     resultat.retweets += tweet.retweets;
   }
   return resultat;
-}
-
-function statistiquesTwitter(tweets) {
-  return tweets.reduce((resultat, tweet) =>
-    (resultat.comments += tweet.comments,
-    resultat.likes += tweet.likes,
-    resultat.retweets += tweet.retweets,
-    resultat), { comments: 0, likes: 0, retweets: 0 });
 }
