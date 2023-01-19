@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Exercices avec filter, map et reduce</title>
+  <link rel="stylesheet" type="text/css" href="../commun/style.css" />
+  <link rel="icon" type="image/png" href="../../images/favicon-64px.png" />
+</head>
+
+<body>
+  <h1>Chaînage de méthodes</h1>
+  <p>
+    Pour répondre à ces exercices, tapez votre code dans le fichier <code>exercices.js</code>.<br />
+  </p>
+  <p>
+    Pensez à bien lire l'intégralité de <a
+      href="https://github.com/javascriptdezero/module-avance/tree/master/cours#exercices"
+      target="_blank">la documentation pour faire les exercices</a> avant de commencer.
+  </p>
+  <p>
+    Dernier point, lorsque vous trouvez la solution d'un exercice par vous-même, allez tout de même voir la solution que
+    je propose :
+    vous apprendrez peut-être une autre façon de faire plus intéressante !
+  </p>
+
+  <h2>En cas de problèmes techniques</h2>
+  <p>Il se peut que vous rencontriez certains problèmes techniques pour valider les exercices.<br>
+    Lisez leur solution au moins une fois avant de commencer les exercices.</p>
+  <ul>
+    <li>
+      <p>Si certains exercices précédemment validés en vert redeviennent gris et "En attente de code à tester" : c'est
+        qu'il y
+        a une erreur de syntaxe dans votre code. Solution : ouvrez la console développeur pour trouver l'erreur.</p>
+      <details>
+        <summary>Cliquez ici pour savoir comment ouvrir la console développeur de Chrome</summary>
+        <p><strong>Sur Windows ou Linux</strong> : depuis Chrome, tapez <code>Ctrl + Shift + J</code> ou allez dans le
+          menu (les 3
+          petits points verticaux en haut à droite de la fenêtre de Chrome) puis allez dans Plus d'outils > Outils de
+          développement.</p>
+        <p><strong>Sur MacOS</strong> : depuis Chrome, tapez <code>⌘ + ⌥ + J</code> (Commande + Option + J) ou bien
+          allez dans le
+          menu Afficher > Options pour les développeurs > Console JavaScript.</p>
+        <p>Le message d'erreur apparaît en rouge et est en anglais, il faudra le traduire. L'erreur vient du fichier
+          noté sur la droite au numéro de ligne indiqué. Ouvrez ce fichier dans VSCode, rendez-vous à la ligne indiquée
+          et corrigez l'erreur.<br><br>
+          <img src="../../images/console-developpeur.jpg" alt="Onglet console de la console développeur"
+            style="width: 100%">
+        </p>
+      </details>
+    </li>
+    <li>
+      <p>Si la page web ne répond plus (les clics n'ont aucun effet) ou si l'icône dans l'onglet tourne indéfiniment :
+        c'est qu'il y a une boucle infinie dans votre code. Solution : corrigez votre code puis actualisez le site web.
+      </p>
+      <details>
+        <summary>Cliquez ici pour voir comment corriger une boucle infinie</summary>
+        <p>Si vous avez fait une boucle infinie, l'icône de votre onglet va tourner comme ça indéfiniment
+          :<br /><br /><img src="../../images/boucle-infinie.jpg" alt="page web en boucle infinie" width="400"></p>
+        <p>Voici à quoi peut ressembler une boucle infinie dans du code :</p>
+        <p class="code">
+          let poidsClient = prochainClient.mesurerPoids();<br><br>
+
+          while (poidsClient !== 0) {<br>
+          &nbsp;&nbsp;console.log(poidsClient);<br>
+          }
+        </p>
+        <p>Le problème ici, c'est que la condition de répétition de la boucle <code>poidsClient !== 0</code> est
+          toujours vraie ! En effet, on ne modifie pas la valeur de <code>poidsClient</code> à l'intérieur de la boucle,
+          par
+          conséquent celle-ci s'exécutera sans jamais s'arrêter : vous avez fait une boucle infinie !</p>
+        <p>Voici les étapes à respecter pour se sortir de ce problème :</p>
+        <ol>
+          <li>Dans le menu de Chrome (les 3 petits points verticaux en haut à droite de la fenêtre de Chrome), allez
+            dans Plus d'outils > Gestionnaire de tâches, sélectionnez l'onglet qui pose problème dans la liste puis
+            cliquez sur le bouton <code>Arrêter le processus</code> en bas à droite.
+            <br>
+            Vous pouvez également faire un clic droit sur la barre de titre de Chrome pour sélectionner plus rapidement
+            le gestionnaire de tâches.
+            <br><br>
+            <img src="../../images/clic-droit-gestionnaire-taches.jpg"
+              alt="clic droit pour accéder au gestionnaire de tâches" style="width: 100%"></li>
+          <li>Corrigez le bogue dans votre code depuis VSCode.</li>
+          <li>Actualisez à nouveau la page web qui a été précédemment arrêtée en cliquant sur la petite flèche à gauche
+            de la barre d'adresse.<br><br><img src="../../images/actualiser.jpg" alt="flèche à cliquer pour actualiser"
+              width="400"></li>
+        </ol>
+        <h3>Attention à la sauvegarde automatique dans VSCode !</h3>
+        <p>Dans les paramètres, je vous conseille d'utiliser l'option <code>onFocusChange</code> pour la sauvegarde
+          automatique.</p>
+        <img src="../../images/autosave.jpg" alt="configuration option sauvegarde automatique vscode"
+          style="width: 100%">
+        <p>En effet, si vous avez l'option <code>afterDelay</code> de sélectionnée, ça veut dire que VSCode va
+          sauvegarder votre code toutes les X secondes. Le site web va se recharger automatiquement à ce moment là et si
+          votre code actuel génère une boucle infinie, Chrome va planter !</p>
+        <p>Pour éviter ce problème, utilisez l'option <code>onFocusChange</code> qui indique à VSCode de sauvegarder
+          votre fichier seulement si vous changez de fenêtre ou d'onglet. Vous pouvez aussi sauvegarder manuellemment
+          avec <code>⌘ + S</code> sur MacOS ou <code>Ctrl + S</code> sur Windows ou Linux quand vous voulez vérifier que
+          votre code fonctionne.</p>
+      </details>
+    </li>
+    <li>
+      <p>Si vous souhaitez déboguer votre code, utilisez le débogueur de Chrome comme je l'explique <a
+          href="https://www.youtube.com/watch?v=_imeD5H-yCw&t=557" target="_blank">dans cette vidéo</a>.</p>
+    </li>
+    <li>
+      <p>Si vous êtes bloqué et qu'aucune solution mentionnée ne fonctionne, envoyez-moi un email sur <a
+          href="mailto:jeremy@javascriptdezero.com">jeremy@javascriptdezero.com</a> en précisant le numéro de la leçon
+        sur laquelle vous travaillez et le numéro de l'exercice qui pose problème.</p>
+    </li>
+  </ul>
+
+  <h2>Documentation</h2>
+  <ul>
+    <li><a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/filter" class="mdn">Consulter la doc MDN sur la méthode filter()</a></li>
+    <li><a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/map" class="mdn">Consulter la doc MDN sur la méthode map()</a></li>
+    <li><a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" class="mdn">Consulter la doc MDN sur la méthode reduce()</a></li>
+  </ul>
+
+  <h2>Objectifs</h2>
+  <ul>
+    <li>Utiliser le chaînage de méthodes pour résoudre des exercices</li>
+    <li>Apprendre à découper un algorithme en plusieurs parties pour l'implémenter grâce aux méthodes filter(), map() et reduce()</li>
+  </ul>
+
+  <p>Résolvez les exercices en utilisant une combinaison des méthodes filter(), map() et reduce() avec le chaînage de méthodes. Vous n'êtes pas obligés d'utiliser les 3 méthodes, vous pouvez en utiliser plus ou moins et parfois plusieurs fois la même selon l'exercice.</p>
+
+  <div class="enonce" id="enonce-0">
+    <h2>Exercice 0</h2>
+
+    <p>Rédigez la fonction <code>sommeDesPositifs(nombres)</code> qui permettra de renvoyer la somme des <strong>entiers positifs</strong> du tableau <code>nombres</code>.</p>
+      
+    <p>Le paramètre <code>nombres</code> est un tableau contenant des entiers positifs, négatifs et nuls. Si le tableau <code>nombres</code> est vide ou ne contient que des nombres nuls et négatifs, la fonction doit renvoyer la valeur <code>0</code>.</p>
+
+    <div class="message"></div>
+  </div>
+
+  <div class="enonce" id="enonce-1">
+    <h2>Exercice 1</h2>
+
+    <p>Rédigez la fonction <code>nombresPaires(nombres)</code> qui renverra un tableau contenant uniquement les nombres pairs de <code>nombres</code>.</p>
+
+    <p>Le paramètre <code>nombres</code> est un tableau contenant des nombres entiers. Si le tableau <code>nombres</code> est vide ou s'il n'y a aucun nombre pair dans celui-ci, la fonction doit renvoyer un tableau vide.</p>
+
+    <div class="message"></div>
+  </div>
+
+  <div class="enonce" id="enonce-2">
+    <h2>Exercice 2</h2>
+
+    <p>Rédigez la fonction <code>moyenne(nombres)</code> qui renverra la moyenne des nombres contenus dans <code>nombres</code>.</p>
+
+    <p>Le paramètre <code>nombres</code> est un tableau contenant des entiers positifs ou nuls (0). Si ce tableau est vide la fonction doit renvoyer <code>0</code>.</p>
+
+    <div class="message"></div>
+  </div>
+
+  <div class="enonce" id="enonce-3">
+    <h2>Exercice 3</h2>
+
+    <p>Rédigez la fonction <code>motsAvecEDeLongueurPaire(mots)</code> qui renverra un tableau contenant uniquement les mots contenant la lettre <code>e</code> et dont la longueur est paire.</p>
+
+    <p>Le paramètre <code>mots</code> est un tableau contenant des mots. Si le tableau <code>mots</code> est vide ou s'il n'y a aucun mot contenant la lettre <code>e</code> de longueur paire la fonction doit renvoyer un tableau vide.</p>
+
+    <div class="message"></div>
+  </div>
+
+  <div class="enonce" id="enonce-4">
+    <h2>Exercice 4</h2>
+
+    <p>Rédigez la fonction <code>initialesEnMajuscules(phrase)</code> qui renverra une chaîne de caractères contenant toutes les initiales des mots contenu dans la <code>phrase</code>.</p>
+
+    <p>Le paramètre <code>phrase</code> est une phrase écrite en minuscules contenant zero ou plusieurs mots. Si cette phrase ne contient aucun mot la fonction doit renvoyer une chaîne vide <code>""</code>.</p>
+
+    <div class="message"></div>
+  </div>
+
+  <div class="enonce" id="enonce-5">
+    <h2>Exercice 5</h2>
+
+    <p>Rédigez la fonction <code>abreviations(phrase)</code> qui renverra une chaîne de caractères contenant toutes les abréviations des mots contenus dans la <code>phrase</code>.</p>
+
+    <p>L'abréviation du mot <code>passage</code> est <code>p5e</code>. Pour la construire on prend la première lettre puis on ajoute la quantité de lettres du mot - 2 puis on ajoute la dernière lettre.</p>
+
+    <p>Il faudra transformer en abréviations tous les mots dont la longueur est <strong>strictement</strong> supérieure à 4. Si le mot n'est pas passez long, on le laisse intact dans la phrase.</p>
+
+    <p>Exemple avec la phrase <code>Il est temps de se coucher</code>, la fonction devra retourner <code>Il est t3s de se c5r</code></p>
+
+    <p>Le paramètre <code>phrase</code> est une phrase contenant zero ou plusieurs mots. Si cette phrase ne contient aucun mot la fonction doit renvoyer une chaîne vide <code>""</code>.</p>
+
+    <div class="message"></div>
+  </div>
+
+  <div class="enonce" id="enonce-6">
+    <h2>Exercice 6</h2>
+
+    <p>Rédigez la fonction <code>lePlusJeuneEtLePlusVieux(personnes)</code> qui renverra un tableau contenant 2 prénoms (chaînes de caractères). Le 1<sup>er</sup> prénom sera celui de la personne la plus jeune, le 2<sup>ème</sup> prénom sera celui de la personne la plus vieille.</p>
+
+    <p>Le paramètre <code>personnes</code> est un tableau d'objets représentant des personnes. Chaque objet contient 2 propriétés <code>prenom</code> et <code>age</code>. Exemple :</p>
+
+    <pre><code>[
+  {
+    prenom: "Jean",
+    age: 56,
+  },
+  {
+    prenom: "Marc",
+    age: 25,
+  },
+  {
+    prenom: "Bertrand",
+    age: 34,
+  },
+]</code></pre>
+
+    <p>Dans cet exemple la fonction devrait renvoyer le tableau <code>["Marc", "Jean"]</code>.</p>
+
+    <h3>Cas particuliers</h3>
+
+    <p>Si le tableau est vide, la fonction doit renvoyer le tableau <code>[null, null]</code>.</p>
+
+    <p>Si le tableau ne contient qu'une seule personne (appelons-là Marie), la fonction doit renvoyer le tableau <code>["Marie", "Marie"]</code>.</p>
+
+    <p>Si le tableau contient 2 personnes ou plus qui sont les plus jeunes (elles ont toutes le même âge) alors on renverra le prénom qui arrive en dernier lorsqu'on les trie par ordre alphabétique. Même chose s'il y a plusieurs personnes qui sont les plus vieilles.</p>
+
+    <p>Exemple :</p>
+
+    <pre><code>[
+  {
+    prenom: "Sophie",
+    age: 25,
+  },
+  {
+    prenom: "Dominique",
+    age: 34,
+  },
+  {
+    prenom: "Jacques",
+    age: 48,
+  },
+  {
+    prenom: "Michael",
+    age: 25,
+  },
+  {
+    prenom: "Bénédicte",
+    age: 48,
+  },
+]</code></pre>
+
+    <p>Dans cet exemple, <code>Sophie</code> et <code>Michael</code> sont les plus jeunes, ils ont tous les deux <code>25</code> ans. On classe leurs prénoms dans l'ordre alphabétique : Michael vient avant Sophie, c'est donc <code>Sophie</code> qu'on devra renvoyer comme résultat de la plus jeune personne.</p>
+
+    <p>On applique le même principe pour les plus vieux <code>Jacques</code> et <code>Bénédicte</code>, on renverra donc le prénom de <code>Jacques</code> comme étant le plus vieux.</p>
+
+    <p>N'essayez pas de faire cet exercice avec une seule instruction contenant plein de chaînages de méthodes mais découpez les différents chaînages en plusieurs instructions.</p>
+
+    <div class="information">Pensez à utiliser les fonctions <code>sort()</code> et <code>localeCompare()</code> pour cet exercice 😉. Prenez votre temps, il n'est pas facile.</div>
+    <br>
+
+    <p>Lorsque vous aurez réussi l'exercice, tentez le BONUS ci-dessous :</p>
+
+    <div class="attention">BONUS : Tentez de trouver une façon de faire (sans forcément utiliser le chaînage de méthodes) pour ne parcourir <strong>qu'une seule fois</strong> le tableau <code>personnes</code> et optimiser ainsi les performances ! Une simple boucle suffit...</div><br>
+
+    <div class="message"></div>
+  </div>
+
+  <footer>
+    Exercices de la formation <a href="https://www.javascriptdezero.com">JavaScript de Zéro</a> par
+    <a href="https://twitter.com/JeremyMouzin">Jérémy Mouzin</a>
+  </footer>
+
+  <script src="../commun/mes-outils.js"></script>
+  <script src="../commun/init.js"></script>
+  <script src="exercices.js"></script>
+  <script src="validateur/tests.js"></script>
+</body>
+
+</html>
